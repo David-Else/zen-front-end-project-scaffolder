@@ -1,0 +1,20 @@
+{
+  "name": "project-name-placeholder",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/main.js",
+  "scripts": {
+    "global-install": "pnpm install -g mocha jsdom jsdom-global",
+    "test": "mocha --reporter min --require esm --require jsdom-global/register -b",
+    "test-watch": "mocha --watch --reporter min --require esm --require jsdom-global/register -b",
+    "build": "rollup --format=iife --file=dist/bundle.js -- src/main.js && purgecss --css src/main.css --content index.html src/**/*.js --out dist"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "esm": "^3.0.64",
+    "purgecss": "^1.0.1",
+    "rollup": "^0.62.0"
+  }
+}

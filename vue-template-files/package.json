@@ -1,0 +1,26 @@
+{
+  "name": "project-name-placeholder",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/main.js",
+  "scripts": {
+    "global-install": "pnpm install -g mocha jsdom jsdom-global",
+    "test": "mocha --reporter min --require esm --require jsdom-global/register -b",
+    "test-watch": "mocha --watch --reporter min --require esm --require jsdom-global/register -b",
+    "build": "rollup --format=iife --file=dist/bundle.js -- src/main.js && purgecss --css src/main.css --content index.html src/**/*.js --out dist",
+    "update-vendor-dir-vue-copy": "cp node_modules/vue/dist/vue.js vendor"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@vue/test-utils": "^1.0.0-beta.20",
+    "esm": "^3.0.64",
+    "purgecss": "^1.0.1",
+    "rollup": "^0.62.0",
+    "vue-template-compiler": "^2.5.16"
+  },
+  "dependencies": {
+    "vue": "^2.5.16"
+  }
+}

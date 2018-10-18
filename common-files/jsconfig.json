@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "checkJs": true,
+    "target": "ES2017",
+    "alwaysStrict": true,
+    "strictNullChecks": true
+    // "noUnusedLocals": true,
+    // "noUnusedParameters": true
+  },
+  "include": ["src/**/*"]
+}
