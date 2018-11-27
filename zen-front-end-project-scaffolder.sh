@@ -226,9 +226,11 @@ function install() {
 npm_install() {
     local production_packages=$1
     local development_packages=$2
-    if [[ -n ${production_packages} ]]; then $PACKAGE_MANAGER install $production_packages
+    if [[ -n ${production_packages} ]]; then
+        $PACKAGE_MANAGER install $production_packages
     fi
-    if [[ -n ${development_packages} ]]; then $PACKAGE_MANAGER install --save-dev $development_packages
+    if [[ -n ${development_packages} ]]; then
+        $PACKAGE_MANAGER install --save-dev $development_packages
     fi
 }
 
@@ -285,7 +287,8 @@ function main() {
     vscode=$(get_user_input_yes_no "Open project in Visual Studio Code?")
     echo
 
-    mkdir "$PROJECT_ROOT/$sitename" && cd "$PROJECT_ROOT/$sitename"
+    mkdir "$PROJECT_ROOT/$sitename"
+    cd "$PROJECT_ROOT/$sitename"
     echo "# $sitename" >>README.md
     install
     update_package_json
