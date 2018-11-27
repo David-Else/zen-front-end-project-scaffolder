@@ -31,6 +31,7 @@ set -euo pipefail
 PROJECT_ROOT=$HOME/sites
 PACKAGE_MANAGER=pnpm # current options include pnpm, npm and yarn
 dir_script_contained="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+# script_dir=$( readlink -f $( readlink "${BASH_SOURCE[0]}" ) # if symlink
 GREEN=$(tput setaf 2)
 RESET=$(tput sgr0)
 GITHUB_USERNAME=David-Else
@@ -41,7 +42,7 @@ GITHUB_USERNAME=David-Else
 init_templates() {
     declare -gA base_template=(
         [production_packages]='' # for npm install
-        [development_packages]='esm purgecss rollup mocha jsdom jsdom-global' # for npm install --save-dev
+        [development_packages]='esm purgecss rollup jsdom jsdom-global' # for npm install --save-dev
         [source_directory]=/common-files/ # where the files we are going to copy live
         [build_instructions]=$(
             cat <<EOF
@@ -241,7 +242,7 @@ function update_package_json() {
     node -p '
   const p = require("./package.json");
   p.scripts = {
-    "global-install": "pnpm install -g mocha jsdom jsdom-global",
+    "global-install": "sudo npm install -g jsdom jsdom-global",
     "test": "mocha --reporter min --require esm --require jsdom-global/register -b",
     "test-watch": "mocha --watch --reporter min --require esm --require jsdom-global/register -b",
     "build": "rollup --format=iife --file=dist/bundle.js -- src/main.js && purgecss --css src/main.css --content index.html src/**/*.js --out dist"
@@ -297,7 +298,7 @@ function main() {
     echo "Your new project directory is: ${GREEN}$PWD${RESET}"
 
     if [ "$vscode" = true ]; then
-        GTK_IM_MODULE=ibus code .
+        code .
     else
         exit
     fi

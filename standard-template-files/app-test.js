@@ -1,7 +1,7 @@
-const assert = require('assert');
+const assert = require('assert').strict;
 import { test } from '../src/app.js';
 
-document.body.innerHTML = '<div id="app"></div>';
+// document.body.innerHTML = '<div id="app"></div>';
 
 describe('test()', () => {
   const testData = 2;
