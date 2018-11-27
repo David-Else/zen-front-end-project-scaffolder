@@ -30,6 +30,7 @@ set -euo pipefail
 # ! create a function with PROJECT_ROOT as a local
 PROJECT_ROOT=$HOME/sites
 PACKAGE_MANAGER=pnpm # current options include pnpm, npm and yarn
+dir_script_contained="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 GREEN=$(tput setaf 2)
 RESET=$(tput sgr0)
 GITHUB_USERNAME=David-Else
@@ -113,7 +114,6 @@ check_template_keys() {
 create_files_folders() {
     local source_directory=$1
     local build_instructions=$2
-    local dir_script_contained="$(dirname "$0")" # apparantly this is not an option! http://mywiki.wooledge.org/BashFAQ/028
     local file_folder=$dir_script_contained${source_directory}
 
     OLDIFS="$IFS"
