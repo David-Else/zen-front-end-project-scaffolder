@@ -42,7 +42,7 @@ GITHUB_USERNAME=David-Else
 init_templates() {
     declare -gA base_template=(
         [production_packages]='' # for npm install
-        [development_packages]='esm purgecss rollup jsdom jsdom-global' # for npm install --save-dev
+        [development_packages]='esm purgecss rollup jsdom mocha' # for npm install --save-dev
         [source_directory]=/common-files/ # where the files we are going to copy live
         [build_instructions]=$(
             cat <<EOF
@@ -70,6 +70,7 @@ index.html:.
 main.js:./src/
 app.js:./src/
 app-test.js:./test/
+setup.js:./test/
 :src/classes
 EOF
         )
@@ -236,15 +237,14 @@ npm_install() {
 }
 
 #==============================================================================
-# Update package.json
+# Add scripts to package.json
 #==============================================================================
 function update_package_json() {
     node -p '
   const p = require("./package.json");
   p.scripts = {
-    "global-install": "sudo npm install -g jsdom jsdom-global",
-    "test": "mocha --reporter min --require esm --require jsdom-global/register -b",
-    "test-watch": "mocha --watch --reporter min --require esm --require jsdom-global/register -b",
+    "test": "mocha --reporter min --require esm --require test/setup.js",
+    "test-watch": "mocha --watch --reporter min --require esm --require test/setup.js",
     "build": "rollup --format=iife --file=dist/bundle.js -- src/main.js && purgecss --css src/main.css --content index.html src/**/*.js --out dist"
   };
   JSON.stringify(p, null, 2);
